@@ -1,0 +1,52 @@
+<!-- pages/paginas/paciente/index.html -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/pages/paciente/style.css">
+    <title>Página del Paciente</title>
+</head>
+<body>
+    <header>
+        <h1>Bienvenido, <span id="nombrePaciente"></span></h1>
+    </header>
+    
+    <section id="proximasCitas">
+        <!-- Próximas citas se cargarán dinámicamente con JavaScript -->
+    </section>
+
+    <section id="medicacionActual">
+        <!-- Medicación actual se cargará dinámicamente con JavaScript -->
+    </section>
+
+    <section id="consultasPasadas">
+        <!-- Consultas pasadas se cargarán dinámicamente con JavaScript -->
+    </section>
+
+    <section id="detalleConsulta">
+        <!-- Detalle de consulta se mostrará dinámicamente con JavaScript al seleccionar una consulta -->
+    </section>
+
+    <section id="pedirCita">
+        <h2>Pedir Cita con el Médico de Cabecera</h2>
+        <form id="formularioCita">
+            <label for="fechaCita">Seleccione la fecha:</label>
+            <input type="date" id="fechaCita" required>
+            <span id="mensajeFechaInvalida" class="mensaje-error"></span>
+
+            <label for="sintomatologia">Sintomatología (opcional):</label>
+            <textarea id="sintomatologia" rows="4" placeholder="Describa sus síntomas..."></textarea>
+
+            <button type="button" id="btnPedirCita">PEDIR CITA</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Hospital Quintanilla</p>
+    </footer>
+
+    <script src="/pages/paciente/main.js"></script>
+</body>
+</html>

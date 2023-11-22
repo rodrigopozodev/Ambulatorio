@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Médico</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Bienvenido, Dr. [Nombre del médico]</h1>
+        <p>Especialidad: [Especialidad del médico]</p>
+    </header>
+
+    <section class="consultas-hoy">
+        <h2>Consultas de hoy</h2>
+        <!-- Aquí irá la lista de consultas de hoy -->
+    </section>
+
+    <section class="proximas-consultas">
+        <h2>Próximas consultas</h2>
+        <!-- Aquí irá la lista de próximas consultas -->
+        <p>Número de consultas en los próximos 7 días: [Número de consultas]</p>
+    </section>
+
+    <section class="abrir-consulta">
+        <button onclick="abrirConsulta()">PASAR CONSULTA</button>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Hospital Quintanilla</p>
+    </footer>
+
+    <!-- Script para abrir una nueva pestaña de consulta -->
+    <script>
+        function abrirConsulta() {
+            window.open('consulta.html', '_blank');
+        }
+    </script>
+    <script src="/pages/medico/main.js"></script>
+</body>
+</html>
