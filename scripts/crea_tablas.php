@@ -1,9 +1,12 @@
 <?php
 
-require_once('../connections/conecta.php');
-
 function crearTablas() {
-    $conexion = getConexion();
+    $conexion = new mysqli('localhost', 'root', '', 'Ambulatorio');
+
+    // Verificar la conexión
+    if ($conexion->connect_error) {
+        die("Error de conexión: " . $conexion->connect_error);
+    }
 
     // Crear tabla medico
     $crearTablaMedico = "CREATE TABLE IF NOT EXISTS medico (
@@ -12,7 +15,6 @@ function crearTablas() {
         apellidos VARCHAR(50),
         especialidad VARCHAR(50)
     )";
-    //  ejecuta la consulta SQL para crear la tabla
     $conexion->query($crearTablaMedico);
 
     // Crear tabla paciente
@@ -25,7 +27,6 @@ function crearTablas() {
         fecha_nac DATE,
         id_medicos_asignados TEXT
     )";
-    //  ejecuta la consulta SQL para crear la tabla
     $conexion->query($crearTablaPaciente);
 
     // Crear tabla consulta
@@ -39,7 +40,6 @@ function crearTablas() {
         FOREIGN KEY (id_medico) REFERENCES medico(id_medico),
         FOREIGN KEY (id_paciente) REFERENCES paciente(id_paciente)
     )";
-    //  ejecuta la consulta SQL para crear la tabla
     $conexion->query($crearTablaConsulta);
 
     // Crear tabla medicamento
@@ -47,7 +47,6 @@ function crearTablas() {
         id_medicamento INT AUTO_INCREMENT PRIMARY KEY,
         nombre VARCHAR(50)
     )";
-    //  ejecuta la consulta SQL para crear la tabla
     $conexion->query($crearTablaMedicamento);
 
     // Crear tabla receta
@@ -59,13 +58,60 @@ function crearTablas() {
         FOREIGN KEY (id_medicamento) REFERENCES medicamento(id_medicamento),
         FOREIGN KEY (id_consulta) REFERENCES consulta(id_consulta)
     )";
-    //  ejecuta la consulta SQL para crear la tabla
     $conexion->query($crearTablaReceta);
 
-    // Cerrar conexión
+    // Inserción de datos
+    $insertarDatos = "
+        INSERT INTO medico (nombre, apellidos, especialidad) VALUES
+            ('Dr. José', 'Martínez Gómez', 'Cardiología'),
+            ('Dra. Laura', 'Sánchez Rodríguez', 'Pediatría'),
+            ('Dr. Juan', 'López Pérez', 'Dermatología'),
+            ('Dra. Carmen', 'Fernández López', 'Neurología');
+
+        INSERT INTO paciente (dni, nombre, apellidos, genero, fecha_nac, id_medicos_asignados) VALUES
+            ('12345678A', 'Laura', 'Gómez Rodríguez', 'F', '1990-05-15', '1,2'),
+            ('87654321B', 'Carlos', 'Pérez Gutiérrez', 'M', '1985-10-20', '3,4'),
+            ('23456789C', 'Sofía', 'García Martínez', 'F', '2000-03-08', '2,3'),
+            ('98765432D', 'Pedro', 'Rodríguez Sánchez', 'M', '1972-12-03', '1');
+
+        INSERT INTO consulta (id_medico, id_paciente, fecha_consulta, diagnostico, sintomatologia) VALUES
+            (1, 1, '2023-03-01', 'Presión arterial alta', 'Dolor de cabeza y mareos'),
+            (2, 2, '2023-02-15', 'Alergia en la piel', 'Picazón y enrojecimiento'),
+            (3, 3, '2023-01-20', 'Eczema', 'Piel seca y escamosa'),
+            (4, 4, '2023-03-05', 'Vacunación infantil', 'Control de rutina');
+
+        INSERT INTO medicamento (nombre) VALUES
+            ('Paracetamol'),
+            ('Ibuprofeno'),
+            ('Aspirina'),
+            ('Amoxicilina');
+
+        INSERT INTO receta (id_medicamento, id_consulta, posologia, fecha_fin) VALUES
+            (1, 1, '1 tableta cada 8 horas', '2023-03-10'),
+            (2, 2, '1 tableta cada 12 horas', '2023-02-25'),
+            (3, 3, '1 tableta cada 24 horas', '2023-02-10'),
+            (4, 4, '1 cucharadita cada 12 horas', '2023-03-15');
+    ";
+
+    if ($conexion->multi_query($insertarDatos)) {
+        do {
+            // store first result set
+            if ($result = $conexion->store_result()) {
+                while ($row = $result->fetch_row()) {
+                    printf("%s\n", $row[0]);
+                }
+                $result->free();
+            }
+            // print divider
+            if ($conexion->more_results()) {
+                printf("-------------\n");
+            }
+        } while ($conexion->next_result());
+    }
+
+    // Cerrar la conexión
     $conexion->close();
 }
 
-// Llamamos a la función para crear las tablas
+// Llamar a la función para crear tablas e insertar datos
 crearTablas();
-?>
