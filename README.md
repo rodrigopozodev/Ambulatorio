@@ -41,16 +41,6 @@ El archivo `conecta.php` contiene una función esencial para el proyecto: `getCo
    - `contrasena`: Tu contraseña de la base de datos <u>""</u>.
    - `bd`: El nombre de la base de datos a la que te estás conectando "<u>Ambulatorio</u>" en este caso.
 
-2. **Creación de la conexión:**
-   - Se utiliza la clase `mysqli` de PHP para crear una nueva conexión con el servidor de la base de datos.
-   - La conexión se establece con los parámetros proporcionados.
-
-3. **Verificación de la conexión:**
-   - Se verifica si hay errores durante la conexión utilizando la propiedad `connect_error` de la instancia de conexión.
-   - Si se encuentra un error, se finaliza el script y se muestra un mensaje de error.
-
-4. **Retorno de la conexión:**
-   - Si la conexión es exitosa, la función devuelve el objeto de conexión, permitiendo su uso en otras partes del proyecto.
 ```php
 <?php
 
@@ -59,19 +49,68 @@ function getConexion() {
     $usuario = "root";
     $contrasena = "";
     $bd = "Ambulatorio";
+```
 
-    $conexion = new mysqli('localhost', 'root', '', 'Ambulatorio');
+2. **Creación de la conexión:**
+   - Se utiliza la clase `mysqli` de PHP para crear una nueva conexión con el servidor de la base de datos.
+   - La conexión se establece con los parámetros proporcionados.
 
-    // Verificar la conexión
+```php
+    // Crear una conexión
+    $conexion = new mysqli($servidor, $usuario, $contrasena);
+```
+3. **Verificación de la conexión:**
+   - Se verifica si hay errores durante la conexión utilizando la propiedad `connect_error` de la instancia de conexión.
+   - Si se encuentra un error, se finaliza el script y se muestra un mensaje de error.
+
+```php
+// Verificar la conexión
     if ($conexion->connect_error) {
         die("Error de conexión: " . $conexion->connect_error);
     }
+```
 
+4. **Verificación de la existencia de la base de datos:**
+   - Se realiza una consulta para verificar si la base de datos "Ambulatorio" ya existe.
+   - Si no existe, se crea y se selecciona.
+   - Se muestra un mensaje indicando si la base de datos fue creada o si ya existía.
+
+```php
+// Verificar si la base de datos existe
+    $resultado = $conexion->query("SHOW DATABASES LIKE 'Ambulatorio'");
+
+    // Si no existe, la creamos
+    if ($resultado->num_rows === 0) {
+        $crearBD = $conexion->query("CREATE DATABASE Ambulatorio");
+
+        if (!$crearBD) {
+            die("Error al crear la base de datos: " . $conexion->error);
+        }
+
+        // Luego, seleccionamos la base de datos recién creada
+        $conexion->select_db("Ambulatorio");
+
+        // Aquí puedes incluir la lógica para crear tablas e insertar datos
+        // ...
+
+        echo "Base de datos Ambulatorio creada con éxito.";
+    } else {
+        // La base de datos ya existe
+        $conexion->select_db("Ambulatorio");
+        echo "Conexión a la base de datos Ambulatorio existente.";
+    }
+```
+
+5. **Retorno de la conexión:**
+   - Si la conexión es exitosa, la función devuelve el objeto de conexión, permitiendo su uso en otras partes del proyecto.
+
+```php
     return $conexion;
 }
 
 ?>
 ```
+
 ---
 
 # Archivo `crea_tablas.php`
