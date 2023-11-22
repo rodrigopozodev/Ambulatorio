@@ -1,7 +1,10 @@
 <?php
-require_once('../connections/conecta.php');
+$conexion = new mysqli('localhost', 'root', '', 'Ambulatorio');
 
-$conexion = getConexion();
+// Verificar la conexión
+if ($conexion->connect_error) {
+    die("Error de conexión: " . $conexion->connect_error);
+}
 
 // Verificar si la base de datos existe
 $resultado = $conexion->query("SHOW DATABASES LIKE 'Ambulatorio'");
@@ -23,5 +26,6 @@ if ($resultado->num_rows === 0) {
     echo "Base de datos Ambulatorio creada con éxito.";
 }
 
-// No necesitas cerrar la conexión aquí, ya que getConexion devuelve la conexión lista para usar.
+// Cerrar la conexión
+$conexion->close();
 ?>
