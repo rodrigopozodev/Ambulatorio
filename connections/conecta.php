@@ -32,10 +32,6 @@ function getConexion() {
         // ...
 
         echo "Base de datos Ambulatorio creada con éxito.";
-    } else {
-        // La base de datos ya existe
-        $conexion->select_db("Ambulatorio");
-        echo "Conexión a la base de datos Ambulatorio existente.";
     }
 
     return $conexion;

@@ -1,9 +1,9 @@
 <?php
 
-include 'conecta.php';
-include 'classes/Medico.php';
-include 'classes/Paciente.php';
-include 'classes/Consulta.php';
+include '../connections/conecta.php';
+include '../classes/Medico.php';
+include '../classes/Paciente.php';
+include '../classes/Consulta.php';
 
 // Funciones relacionadas con médicos
 function obtenerMedicos() {
