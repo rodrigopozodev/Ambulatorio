@@ -1,48 +1,56 @@
-<?php
-// Incluir el archivo de funciones
-include 'classes/funciones.php';
-
-// Comprobar si se ha enviado el formulario de inicio de sesión
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Aquí puedes agregar la lógica para procesar el formulario de inicio de sesión
-    // y determinar si el usuario es paciente o médico.
-    // Luego, puedes redirigir al usuario a la página correspondiente.
-    $usuario = $_POST['usuario'];  // Supongamos que tienes un campo "usuario" en el formulario
-
-    if ($usuario === 'paciente') {
-        header('Location: paciente/index.html');
-        exit;
-    } elseif ($usuario === 'medico') {
-        header('Location: medico/index.html');
-        exit;
-    } else {
-        $error = "Usuario no reconocido";
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio de Sesión</title>
+    <title>Ambulatorio - Bienvenida</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .bienvenida {
+            text-align: center;
+            padding: 50px;
+            background-color: #f2f2f2;
+        }
+
+        .login {
+            display: none;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 <body>
-    <h1>Inicio de Sesión</h1>
+    <div class="bienvenida">
+        <h1>Bienvenido al Ambulatorio</h1>
+        <p>Accede a tu cuenta para continuar.</p>
+        <button onclick="mostrarLogin()">Iniciar Sesión</button>
+    </div>
 
-    <?php if (isset($error)) : ?>
-        <p style="color: red;"><?php echo $error; ?></p>
-    <?php endif; ?>
+    <div id="login" class="login">
+        <!-- Contenido del formulario de login -->
+        <form action="procesar_login.php" method="post">
+            <!-- Agrega aquí tus campos de usuario y contraseña -->
+            <label for="usuario">Usuario:</label>
+            <input type="text" id="usuario" name="usuario" required>
 
-    <form method="post" action="">
-        <label for="usuario">Tipo de usuario:</label>
-        <select name="usuario" id="usuario">
-            <option value="paciente">Paciente</option>
-            <option value="medico">Médico</option>
-        </select>
-        <br>
-        <button type="submit">Iniciar Sesión</button>
-    </form>
+            <label for="contrasena">Contraseña:</label>
+            <input type="password" id="contrasena" name="contrasena" required>
+
+            <button type="submit">Iniciar Sesión</button>
+        </form>
+    </div>
+
+    <script>
+        function mostrarLogin() {
+            var loginDiv = document.getElementById('login');
+            loginDiv.style.display = 'block';
+        }
+    </script>
 </body>
 </html>
