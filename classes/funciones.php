@@ -1,9 +1,11 @@
 <?php
 
-include '../connections/conecta.php';
-include '../classes/Medico.php';
-include '../classes/Paciente.php';
-include '../classes/Consulta.php';
+
+// en funciones.php
+include __DIR__ . '/../connections/conecta.php';
+include __DIR__ . '/Medico.php';
+include __DIR__ . '/Paciente.php';
+include __DIR__ . '/Consulta.php';
 
 // Funciones relacionadas con médicos
 function obtenerMedicos() {
