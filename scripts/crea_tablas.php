@@ -104,9 +104,10 @@ function crearTablas() {
             }
             // print divider
             if ($conexion->more_results()) {
-                printf("-------------\n");
             }
         } while ($conexion->next_result());
+
+        echo "Creadas las tablas con éxito.\n";
     }
 
     // Cerrar la conexión
