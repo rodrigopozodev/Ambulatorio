@@ -25,6 +25,9 @@ if ($stmt) {
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
+
+        // Definir la variable para elegir qué identificador mostrar
+        $mostrar_id = "id_paciente"; // Puedes cambiar a "id_medicos_asignados" según sea necesario
 ?>
 
 <!DOCTYPE html>
@@ -44,13 +47,23 @@ if ($stmt) {
   <section id="informacion-paciente">
     <?php
     if (!empty($row)) {
-      echo "<h2>Nombre e información del paciente</h2>";
+      echo "<h2>Información del paciente</h2>";
       echo "<ul>";
+
+      // Mostrar el identificador elegido
+      if ($mostrar_id == "id_paciente") {
+        echo "<li><strong>ID Paciente:</strong> {$row['id_paciente']}</li>";
+      } elseif ($mostrar_id == "id_medicos_asignados") {
+        echo "<li><strong>Médicos Asignados:</strong> {$row['id_medicos_asignados']}</li>";
+      }
+
+      // Mostrar otras claves
       echo "<li><strong>Nombre:</strong> {$row['nombre']}</li>";
       echo "<li><strong>Apellidos:</strong> {$row['apellidos']}</li>";
       echo "<li><strong>DNI:</strong> {$row['dni']}</li>";
       echo "<li><strong>Género:</strong> {$row['genero']}</li>";
       echo "<li><strong>Fecha de Nacimiento:</strong> {$row['fecha_nac']}</li>";
+
       echo "</ul>";
     } else {
       echo "No se encontró información del paciente.";
@@ -91,7 +104,6 @@ if ($stmt) {
   <script src="scripts.js"></script>
 </body>
 </html>
-
 
 <?php
     } else {
