@@ -28,9 +28,6 @@ function getConexion() {
         // Luego, seleccionamos la base de datos recién creada
         $conexion->select_db("Ambulatorio");
 
-        // Aquí puedes incluir la lógica para crear tablas e insertar datos
-        // ...
-
         echo "Base de datos Ambulatorio creada con éxito.";
     }
 
