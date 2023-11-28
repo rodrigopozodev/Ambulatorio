@@ -1,52 +1,39 @@
-<!-- pages/paginas/paciente/index.html -->
-
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/pages/paciente/style.css">
-    <title>Página del Paciente</title>
+    <title>Pacientes</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <header>
-        <h1>Bienvenido, <span id="nombrePaciente"></span></h1>
+        <h1>Pacientes</h1>
     </header>
-    
-    <section id="proximasCitas">
-        <!-- Próximas citas se cargarán dinámicamente con JavaScript -->
-    </section>
 
-    <section id="medicacionActual">
-        <!-- Medicación actual se cargará dinámicamente con JavaScript -->
+    <section id="informacionPaciente">
+        <!-- Se mostrará la información del paciente, citas, medicación, etc. -->
     </section>
 
     <section id="consultasPasadas">
-        <!-- Consultas pasadas se cargarán dinámicamente con JavaScript -->
-    </section>
-
-    <section id="detalleConsulta">
-        <!-- Detalle de consulta se mostrará dinámicamente con JavaScript al seleccionar una consulta -->
+        <!-- Se mostrará el listado de consultas pasadas -->
     </section>
 
     <section id="pedirCita">
-        <h2>Pedir Cita con el Médico de Cabecera</h2>
-        <form id="formularioCita">
-            <label for="fechaCita">Seleccione la fecha:</label>
-            <input type="date" id="fechaCita" required>
-            <span id="mensajeFechaInvalida" class="mensaje-error"></span>
-
-            <label for="sintomatologia">Sintomatología (opcional):</label>
-            <textarea id="sintomatologia" rows="4" placeholder="Describa sus síntomas..."></textarea>
-
-            <button type="button" id="btnPedirCita">PEDIR CITA</button>
-        </form>
+        <h2>Pedir Cita</h2>
+        <label for="fechaCita">Fecha de la cita:</label>
+        <input type="date" id="fechaCita" required>
+        <br>
+        <label for="sintomatologia">Sintomatología (opcional):</label>
+        <textarea id="sintomatologia" rows="4" cols="50"></textarea>
+        <br>
+        <p id="mensajeError"></p>
+        <button onclick="pedirCita()">Pedir Cita</button>
     </section>
 
-    <footer>
-        <p>&copy; 2023 Hospital Quintanilla</p>
-    </footer>
-
-    <script src="/pages/paciente/main.js"></script>
+    <script src="script.js"></script>
 </body>
+
 </html>

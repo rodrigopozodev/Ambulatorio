@@ -1,5 +1,5 @@
 <?php
-include 'database.php';
+include 'connections/conecta.php';
 
 // Obtener datos de la solicitud (si estás utilizando el método POST)
 $fechaCita = $_POST['fechaCita'];

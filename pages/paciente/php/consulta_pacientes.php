@@ -1,5 +1,5 @@
 <?php
-include 'database.php';
+include 'connections/conecta.php';
 
 // Consulta para obtener la información del paciente y sus citas
 $consultaPaciente = "SELECT p.nombre, p.apellidos, c.id_consulta, m.nombre AS medico, c.fecha_consulta
