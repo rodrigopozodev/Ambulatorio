@@ -60,6 +60,17 @@ function crearTablas() {
     )";
     $conexion->query($crearTablaReceta);
 
+    // Crear tabla citas
+    $crearTablaCitas = "CREATE TABLE IF NOT EXISTS citas (
+        id_cita INT AUTO_INCREMENT PRIMARY KEY,
+        id_paciente INT,
+        fecha_cita DATE,
+        motivo_consulta VARCHAR(255),
+        observaciones TEXT,
+        FOREIGN KEY (id_paciente) REFERENCES paciente(id_paciente)
+    )";
+    $conexion->query($crearTablaCitas);
+
     // Inserción de datos
     $insertarDatos = "
         INSERT INTO medico (nombre, apellidos, especialidad) VALUES
@@ -76,9 +87,22 @@ function crearTablas() {
 
         INSERT INTO consulta (id_medico, id_paciente, fecha_consulta, diagnostico, sintomatologia) VALUES
             (1, 1, '2023-03-01', 'Presión arterial alta', 'Dolor de cabeza y mareos'),
-            (2, 2, '2023-02-15', 'Alergia en la piel', 'Picazón y enrojecimiento'),
-            (3, 3, '2023-01-20', 'Eczema', 'Piel seca y escamosa'),
-            (4, 4, '2023-03-05', 'Vacunación infantil', 'Control de rutina');
+            (1, 2, '2023-02-15', 'Alergia en la piel', 'Picazón y enrojecimiento'),
+            (1, 3, '2023-01-20', 'Eczema', 'Piel seca y escamosa'),
+            (1, 4, '2023-03-05', 'Vacunación infantil', 'Control de rutina'),
+            (2, 1, '2023-04-10', 'Dolor de espalda', 'Molestias en la zona lumbar'),
+            (2, 2, '2023-02-28', 'Resfriado común', 'Congestión nasal y estornudos'),
+            (2, 3, '2023-01-15', 'Gastritis', 'Malestar estomacal y acidez'),
+            (2, 4, '2023-03-20', 'Hipertensión', 'Presión arterial elevada'),
+            (3, 1, '2023-04-05', 'Migraña', 'Dolor intenso en la cabeza y sensibilidad a la luz'),
+            (3, 2, '2023-02-10', 'Infección ocular', 'Enrojecimiento y secreción en los ojos'),
+            (3, 3, '2023-01-25', 'Problemas de sueño', 'Insomnio y cansancio constante'),
+            (3, 4, '2023-03-15', 'Problemas respiratorios', 'Dificultad para respirar y tos persistente'),
+            (4, 1, '2023-04-01', 'Aumento de peso', 'Cambios en el hábito alimenticio y sed constante'),
+            (4, 2, '2023-02-20', 'Dolor muscular', 'Molestias en diferentes áreas del cuerpo'),
+            (4, 3, '2023-01-05', 'Problemas de tiroides', 'Fatiga y cambios en el peso corporal'),
+            (4, 4, '2023-03-25', 'Estrés', 'Dificultad para relajarse y tensión muscular');
+
 
         INSERT INTO medicamento (nombre) VALUES
             ('Paracetamol'),
@@ -116,3 +140,4 @@ function crearTablas() {
 
 // Llamar a la función para crear tablas e insertar datos
 crearTablas();
+?>

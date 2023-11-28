@@ -54,3 +54,7 @@ body {
     background-color: #2980b9;
   }
 
+ #consultas-pasadas ul li a {
+        text-decoration: none; /* Quitar subrayado */
+        color: black; /* Cambiar color del texto, puedes ajustar a tu preferencia */
+    }
