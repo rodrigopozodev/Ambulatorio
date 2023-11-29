@@ -23,6 +23,9 @@
         <div id="consulta-info">
             <h2>Información de la Consulta</h2>
             <!-- Aquí va la información de la consulta que se carga dinámicamente con JavaScript -->
+            <p>ID Médico: <span id="idMedico"></span></p>
+            <p>ID Paciente: <span id="idPaciente"></span></p>
+            <p>Fecha Consulta: <span id="fechaConsulta"></span></p>
         </div>
 
         <!-- Formulario para la consulta -->
@@ -38,13 +41,20 @@
             <!-- Medicación -->
             <h3>Medicación</h3>
             <!-- Aquí van los campos para la medicación que se carga dinámicamente con JavaScript -->
+            <label for="medicamento">Medicamento:</label>
+            <input type="text" id="medicamento" placeholder="Nombre del medicamento">
 
-            <button type="button" id="agregar-medicacion">Añadir Medicación</button>
+            <!-- Agrega aquí los demás campos relacionados con la medicación según tus necesidades -->
+
+            <button type="button" id="agregar-medicacion" onclick="anadirMedicacion()">Añadir Medicación</button>
+
+            <!-- Lista visible de medicación -->
+            <ul id="listaMedicacion"></ul>
 
             <!-- Otros elementos según necesidades -->
 
             <!-- Botón para registrar la consulta -->
-            <button type="button" id="registrar-consulta" class="button">Registrar Consulta</button>
+            <button type="button" id="registrar-consulta" class="button" onclick="registrarConsulta()">Registrar Consulta</button>
         </form>
     </div>
 
