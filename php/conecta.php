@@ -14,6 +14,9 @@ function getConexion() {
         die("Error de conexión: " . $conexion->connect_error);
     }
 
+    // Seleccionar la base de datos
+    $conexion->select_db($bd);
+
     // Verificar si la base de datos existe
     $resultado = $conexion->query("SHOW DATABASES LIKE 'Ambulatorio'");
 
