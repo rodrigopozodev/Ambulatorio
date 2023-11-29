@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/styles.css">
+    <title>Página del Médico</title>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="#">Inicio</a>
+            <a href="#">Consultas</a>
+            <a href="#">Pacientes</a>
+            <a href="#" class="button">Cerrar Sesión</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Perfil Médico</h1>
+
+        <!-- Información del médico -->
+        <div id="medico-info">
+            <h2>Información del Médico</h2>
+            <!-- Aquí va la información del médico que se carga dinámicamente con JavaScript -->
+        </div>
+
+        <!-- Próximas consultas -->
+        <div id="proximas-consultas">
+            <h2>Próximas Consultas</h2>
+            <!-- Aquí van las próximas consultas que se cargan dinámicamente con JavaScript -->
+        </div>
+
+        <!-- Consultas de hoy -->
+        <div id="consultas-hoy">
+            <h2>Consultas de Hoy</h2>
+            <!-- Aquí van las consultas de hoy que se cargan dinámicamente con JavaScript -->
+        </div>
+
+        <!-- Botón para pasar consulta -->
+        <button type="button" id="pasar-consulta" class="button">Pasar Consulta</button>
+    </div>
+
+    <script src="../js/conexion.js"></script>
+    <script src="../js/medico.js"></script>
+</body>
+</html>

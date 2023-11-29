@@ -3,12 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="../css/styles.css">
     <title>Página del Paciente</title>
 </head>
 <body>
-    <!-- Contenido de la página del paciente -->
-    <script src="js/conexion.js"></script>
-    <script src="js/paciente.js"></script>
+    <nav>
+        <div class="container">
+            <a href="#">Inicio</a>
+            <a href="#">Consultas</a>
+            <a href="#">Medicación</a>
+            <a href="#" class="button">Cerrar Sesión</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Perfil del Paciente</h1>
+
+        <!-- Información del paciente -->
+        <div id="paciente-info">
+            <h2>Información del Paciente</h2>
+            <!-- Aquí va la información del paciente que se carga dinámicamente con JavaScript -->
+        </div>
+
+        <!-- Próximas citas -->
+        <div id="proximas-citas">
+            <h2>Próximas Citas</h2>
+            <!-- Aquí van las próximas citas que se cargan dinámicamente con JavaScript -->
+        </div>
+
+        <!-- Medicación actual -->
+        <div id="medicacion-actual">
+            <h2>Medicación Actual</h2>
+            <!-- Aquí va la medicación actual que se carga dinámicamente con JavaScript -->
+        </div>
+
+        <!-- Consultas pasadas -->
+        <div id="consultas-pasadas">
+            <h2>Consultas Pasadas</h2>
+            <!-- Aquí van las consultas pasadas que se cargan dinámicamente con JavaScript -->
+        </div>
+
+        <!-- Formulario para pedir cita -->
+        <form id="cita-form">
+            <h2>Pedir Cita</h2>
+            <!-- Campos para seleccionar médico y fecha, así como textarea para síntomas -->
+            <select id="medico" name="medico">
+                <!-- Opciones para médicos que se cargan dinámicamente con JavaScript -->
+            </select>
+            <input type="date" id="fecha-cita" name="fecha-cita">
+            <textarea id="sintomas" name="sintomas" rows="4" cols="50" placeholder="Describa sus síntomas"></textarea>
+            <button type="button" id="pedir-cita" class="button">Pedir Cita</button>
+        </form>
+    </div>
+
+    <script src="../js/conexion.js"></script>
+    <script src="../js/paciente.js"></script>
 </body>
 </html>
