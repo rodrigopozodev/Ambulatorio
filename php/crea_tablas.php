@@ -1,9 +1,12 @@
 <?php
 
-include 'conecta.php';
-
 function crearTablas() {
-    $conexion = getConexion(); // Obtener la conexión desde conecta.php
+    $conexion = new mysqli('localhost', 'root', '', 'Ambulatorio');
+
+    // Verificar la conexión
+    if ($conexion->connect_error) {
+        die("Error de conexión: " . $conexion->connect_error);
+    }
 
     // Crear tabla medico
     $crearTablaMedico = "CREATE TABLE IF NOT EXISTS medico (
@@ -126,5 +129,4 @@ function crearTablas() {
 
 // Llamar a la función para crear tablas e insertar datos
 crearTablas();
-
 ?>
