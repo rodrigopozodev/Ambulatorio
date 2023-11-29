@@ -36,7 +36,7 @@ function getConexion() {
                 <meta name='viewport' content='width=device-width, initial-scale=1.0'>
                 <title>Conexión a la Base de Datos</title>
                 <link rel='stylesheet' href='../css/styles.css'>
-                <script src='../js/redireccion.js' defer></script>
+                <script src='../js/script.js' defer></script>
             </head>
             <body class='conecta-body'>
             <div class='success-message'>
