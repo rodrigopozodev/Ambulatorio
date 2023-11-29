@@ -31,8 +31,9 @@ body, h1, ul, li {
 }
 
 .ul-html li {
-    margin: 10px 0; /* Espacio entre elementos */
+    margin: 60px; /* Añade un margen derecho para separar los elementos li (botones) */
 }
+
 
 .ul-html a {
     text-decoration: none;
