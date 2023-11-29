@@ -6,7 +6,7 @@ function getConexion() {
     $bd = "Ambulatorio";
 
     // Crear una conexión
-    $conexion = new mysqli($servidor, $usuario, $contrasena);
+    $conexion = new mysqli($servidor, $usuario, $contrasena, $bd);
 
     // Verificar la conexión
     if ($conexion->connect_error) {
@@ -101,6 +101,8 @@ function getConexion() {
             </body>
             </html>
         ";
+
+        return $conexion;
     }
 
     return $conexion;
@@ -108,7 +110,4 @@ function getConexion() {
 
 // Obtener la conexión
 $conexion = getConexion();
-
-// Cerrar la conexión al finalizar el script
-$conexion->close();
 ?>
