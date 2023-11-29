@@ -1,0 +1,56 @@
+/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+
+/* index.php */
+
+body, h1, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilos del contenedor principal */
+.container-html {
+    text-align: center;
+    margin: 10% auto; /* Ajusta según sea necesario para centrar verticalmente y dar espacio arriba */
+    max-width: 80%; /* Ajusta según sea necesario para controlar el ancho máximo del contenedor */
+}
+
+/* Estilos del título */
+.h1-html {
+    font-size: 36px; /* Aumenta el tamaño del título */
+    margin-bottom: 20px;
+}
+
+/* Estilos del menú */
+.ul-html {
+    list-style: none;
+    padding: 0;
+    display: flex; /* Alinea los elementos en fila */
+    justify-content: space-around; /* Espaciado uniforme entre los elementos */
+}
+
+.ul-html li {
+    margin: 10px 0; /* Espacio entre elementos */
+}
+
+.ul-html a {
+    text-decoration: none;
+    font-size: 30px; /* Aumenta el tamaño de los botones */
+    color: #4CAF50; /* Color del texto en verde */
+    padding: 100px; /* Doble del espacio de relleno para hacer los botones el doble de grandes */
+    background-color: #fff; /* Color de fondo blanco */
+    border: 2px solid #4CAF50; /* Borde sólido verde */
+    border-radius: 10px;
+    transition: transform 0.3s ease; /* Agrega transición solo a la propiedad de transformación */
+    display: inline-block; /* Asegura que el enlace se comporte como bloque para que la transformación funcione */
+}
+
+/* Efecto al pasar el cursor por encima */
+.ul-html a:hover {
+    transform: scale(1.2);
+}
+
+/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
