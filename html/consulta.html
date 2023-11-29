@@ -23,9 +23,6 @@
         <div id="consulta-info">
             <h2>Información de la Consulta</h2>
             <!-- Aquí va la información de la consulta que se carga dinámicamente con JavaScript -->
-            <p>ID Médico: <span id="idMedico"></span></p>
-            <p>ID Paciente: <span id="idPaciente"></span></p>
-            <p>Fecha Consulta: <span id="fechaConsulta"></span></p>
         </div>
 
         <!-- Formulario para la consulta -->
@@ -42,19 +39,28 @@
             <h3>Medicación</h3>
             <!-- Aquí van los campos para la medicación que se carga dinámicamente con JavaScript -->
             <label for="medicamento">Medicamento:</label>
-            <input type="text" id="medicamento" placeholder="Nombre del medicamento">
+            <input type="text" id="medicamento" name="medicamento">
 
-            <!-- Agrega aquí los demás campos relacionados con la medicación según tus necesidades -->
+            <label for="cantidad">Cantidad:</label>
+            <input type="text" id="cantidad" name="cantidad">
 
-            <button type="button" id="agregar-medicacion" onclick="anadirMedicacion()">Añadir Medicación</button>
+            <label for="frecuencia">Frecuencia:</label>
+            <input type="text" id="frecuencia" name="frecuencia">
 
-            <!-- Lista visible de medicación -->
+            <label for="numDias">Número de días:</label>
+            <input type="text" id="numDias" name="numDias">
+
+            <label for="esCronica">Medicación crónica:</label>
+            <input type="checkbox" id="esCronica" name="esCronica">
+
+            <button type="button" id="agregar-medicacion">Añadir Medicación</button>
+
             <ul id="listaMedicacion"></ul>
 
             <!-- Otros elementos según necesidades -->
 
             <!-- Botón para registrar la consulta -->
-            <button type="button" id="registrar-consulta" class="button" onclick="registrarConsulta()">Registrar Consulta</button>
+            <button type="button" id="registrar-consulta" class="button">Registrar Consulta</button>
         </form>
     </div>
 
