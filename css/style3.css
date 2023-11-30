@@ -1,0 +1,55 @@
+/* Reset de estilos */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos generales */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.container-html {
+    max-width: 800px;
+    text-align: center;
+}
+
+.h1-html {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #008080; /* Color verde oscuro */
+}
+
+/* Estilos de la lista de enlaces */
+.menu-html {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.li-html {
+    margin-right: 20px;
+}
+
+.li-html a {
+    text-decoration: none;
+    color: #333;
+    font-size: 1.2em;
+    padding: 8px 12px;
+    border: 2px solid #008080; /* Borde con color verde oscuro */
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.li-html a:hover {
+    background-color: #008080;
+    color: #fff; /* Texto blanco al pasar el ratón */
+}

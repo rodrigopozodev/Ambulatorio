@@ -128,40 +128,9 @@ function crearTablas() {
             <meta charset='UTF-8'>
             <meta name='viewport' content='width=device-width, initial-scale=1.0'>
             <title>Creación de Tablas</title>
+            <link rel='stylesheet' href='../css/style2.css'>
             <style>
-                body {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    flex-direction: column; /* Añadido para alinear en columna */
-                    height: 100vh;
-                    margin: 0;
-                    background-color: #f0f0f0;
-                }
-
-                .success-message {
-                    text-align: center;
-                    color: #28a745; /* Color verde */
-                    font-size: 24px;
-                    font-weight: bold;
-                    margin-bottom: 20px;
-                }
-
-                .icon-thumb-up {
-                    font-size: 120px; /* Aumentado el tamaño del icono */
-                    animation: pulse 1s infinite alternate; /* Ajustado la velocidad y tamaño de la animación */
-                }
-
-                @keyframes pulse {
-                    0% {
-                        transform: scale(1); /* Tamaño original */
-                    }
-                    100% {
-                        transform: scale(1.5); /* Tamaño aumentado */
-                    }
-                }
-
-                .redirection-message {
+              .redirection-message {
                     margin-top: 20px; /* Añadido margen superior */
                 }
             </style>
