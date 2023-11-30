@@ -128,7 +128,7 @@ function crearTablas() {
             <meta charset='UTF-8'>
             <meta name='viewport' content='width=device-width, initial-scale=1.0'>
             <title>Creación de Tablas</title>
-            <link rel='stylesheet' href='../css/style2.css'>
+            <link rel='stylesheet' href='../css/crea_tablas.css'>
             <style>
               .redirection-message {
                     margin-top: 20px; /* Añadido margen superior */

@@ -1,4 +1,10 @@
 <?php
+// Asegúrate de que estás incluyendo el archivo de conexión
+
+// Verifica si la conexión es exitosa
+if (!$conexion) {
+    die("La conexión a la base de datos falló: " . mysqli_connect_error());
+}
 
 // Función para obtener información del paciente
 function obtener_paciente($conexion, $id_paciente) {
@@ -106,6 +112,128 @@ function obtener_proximas_citas($conexion, $id_paciente, $id_medico = null) {
 
     mysqli_stmt_execute($stmt_proximas_citas);
     return mysqli_stmt_get_result($stmt_proximas_citas);
+}
+
+
+/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+
+
+/* medico.php */
+
+
+function obtener_info_medico($conexion, $id_medico) {
+    $query = "SELECT nombre, especialidad FROM medico WHERE id_medico = ?";
+    $stmt = mysqli_prepare($conexion, $query);
+    mysqli_stmt_bind_param($stmt, "i", $id_medico);
+    mysqli_stmt_execute($stmt);
+    return mysqli_stmt_get_result($stmt);
+}
+
+function obtener_num_consultas_proximos_7_dias($conexion, $id_medico) {
+    $query = "SELECT COUNT(*) as num_consultas FROM consulta WHERE id_medico = ? AND fecha_consulta BETWEEN NOW() AND DATE_ADD(NOW(), INTERVAL 7 DAY)";
+    $stmt = mysqli_prepare($conexion, $query);
+    mysqli_stmt_bind_param($stmt, "i", $id_medico);
+    mysqli_stmt_execute($stmt);
+    $resultado = mysqli_stmt_get_result($stmt);
+    $fila = mysqli_fetch_assoc($resultado);
+    return $fila['num_consultas'];
+}
+
+function obtener_consultas_hoy($conexion, $id_medico) {
+    $query = "SELECT id_consulta, id_paciente, LEFT(sintomatologia, 100) as extracto_sintomas FROM consulta WHERE id_medico = ? AND DATE(fecha_consulta) = CURDATE()";
+    $stmt = mysqli_prepare($conexion, $query);
+    mysqli_stmt_bind_param($stmt, "i", $id_medico);
+    mysqli_stmt_execute($stmt);
+    return mysqli_stmt_get_result($stmt);
+}
+
+function obtener_medicos($conexion) {
+    $query = "SELECT id_medico, nombre, especialidad FROM medico";
+    $resultado = mysqli_query($conexion, $query);
+    return $resultado;
+}
+
+
+
+
+/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+
+
+
+/* consultas.php */
+
+function obtenerInformacionEditable($conexion, $id_consulta) {
+    $query = "SELECT sintomatologia, diagnostico FROM consulta WHERE id_consulta = ?";
+    $stmt = mysqli_prepare($conexion, $query);
+    mysqli_stmt_bind_param($stmt, "i", $id_consulta);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
+    // Verificar si hay resultados y devolver un array asociativo
+    return $result ? mysqli_fetch_assoc($result) : null;
+}
+
+
+
+// Función para obtener la información de la consulta
+function obtenerInformacionConsulta($conexion, $idConsulta) {
+    $query = "SELECT c.id_consulta, c.fecha_consulta, m.nombre AS nombre_medico, p.nombre AS nombre_paciente
+              FROM consulta c
+              JOIN medico m ON c.id_medico = m.id_medico
+              JOIN paciente p ON c.id_paciente = p.id_paciente
+              WHERE c.id_consulta = ?";
+    
+    $stmt = mysqli_prepare($conexion, $query);
+    mysqli_stmt_bind_param($stmt, "i", $idConsulta);
+    mysqli_stmt_execute($stmt);
+
+    return mysqli_stmt_get_result($stmt);
+}
+
+function obtenerMedicamentos($conexion) {
+    $query = "SELECT id_medicamento, nombre FROM medicamento";
+    
+    $resultado = mysqli_query($conexion, $query);
+
+    return $resultado;
+}
+
+// Nueva función para obtener la medicación de la consulta
+function obtenerMedicacionConsulta($conexion, $idConsulta) {
+    $query = "SELECT medicacion FROM consulta WHERE id_consulta = ?";
+    
+    $stmt = mysqli_prepare($conexion, $query);
+    mysqli_stmt_bind_param($stmt, "i", $idConsulta);
+    mysqli_stmt_execute($stmt);
+
+    return mysqli_stmt_get_result($stmt);
+}
+
+// Nueva función para obtener la información de la medicación
+function obtenerDetallesMedicacion($conexion, $idMedicacion) {
+    $query = "SELECT * FROM medicacion WHERE id_medicacion = ?";
+    
+    $stmt = mysqli_prepare($conexion, $query);
+    mysqli_stmt_bind_param($stmt, "i", $idMedicacion);
+    mysqli_stmt_execute($stmt);
+
+    return mysqli_stmt_get_result($stmt);
+}
+
+// ... Otras funciones ...
+
+// Nueva función para registrar la medicación
+function registrarMedicacion($conexion, $idConsulta, $idMedicamento, $cantidad, $frecuencia, $duracion, $cronica) {
+    $query = "INSERT INTO medicacion (id_consulta, id_medicamento, cantidad, frecuencia, duracion, cronica) VALUES (?, ?, ?, ?, ?, ?)";
+    
+    $stmt = mysqli_prepare($conexion, $query);
+    mysqli_stmt_bind_param($stmt, "iiisii", $idConsulta, $idMedicamento, $cantidad, $frecuencia, $duracion, $cronica);
+
+    return mysqli_stmt_execute($stmt);
 }
 
 ?>
