@@ -1,16 +1,47 @@
 <?php
-include '../php/conecta.php';
-include '../php/consultas.php';
+include '../php/conecta.php'; // Incluye el archivo de conexión
+include '../php/consultas.php'; // Incluye el archivo con las funciones de consulta
 
 $id_paciente_seleccionado = $_POST['id_paciente'] ?? 1;
 
 $resultado_pacientes = obtener_pacientes($conexion);
-
 $resultado_paciente = obtener_paciente($conexion, $id_paciente_seleccionado);
 $resultado_consultas_pasadas = obtener_consultas_pasadas_detalles($conexion, $id_paciente_seleccionado);
 $resultado_proximas_citas = obtener_proximas_citas_detalles($conexion, $id_paciente_seleccionado);
 $resultado_medicacion = obtener_medicacion_actual($conexion, $id_paciente_seleccionado);
+$resultado_medicos_asignados = obtener_medicos_asignados($conexion, $id_paciente_seleccionado);
 
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['pedir_cita'])) {
+    $id_paciente = $_POST['id_paciente'];
+    $id_medico = $_POST['medico'];
+    $fecha = $_POST['fecha'];
+    $sintomas = $_POST['sintomas'];
+
+    // Validar la fecha
+    $hoy = date('Y-m-d');
+    $limite_dias = date('Y-m-d', strtotime($hoy . ' + 30 days'));
+
+    if ($fecha < $hoy) {
+        $mensaje_error = "Fecha no válida. Debe ser igual o posterior a hoy.";
+    } elseif (date('N', strtotime($fecha)) >= 6) {
+        $mensaje_error = "Por favor, elija un día laborable.";
+    } elseif ($fecha > $limite_dias) {
+        $mensaje_error = "Tan malo no estarás. Pide una fecha como máximo 30 días en el futuro.";
+    } else {
+        // Procesar la cita en la base de datos
+        $query_insertar_cita = "INSERT INTO consulta (id_paciente, id_medico, fecha_consulta, sintomatologia, diagnostico) VALUES (?, ?, ?, ?, 'Aún no dictaminado')";
+        $stmt_insertar_cita = mysqli_prepare($conexion, $query_insertar_cita);
+        mysqli_stmt_bind_param($stmt_insertar_cita, "isss", $id_paciente, $id_medico, $fecha, $sintomas);
+
+        if (mysqli_stmt_execute($stmt_insertar_cita)) {
+            // Éxito al insertar la cita, redirigir a la misma página para actualizar la información
+            header("Location: $_SERVER[PHP_SELF]");
+            exit();
+        } else {
+            $mensaje_error = "Error al procesar la cita. Por favor, inténtalo de nuevo.";
+        }
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -19,11 +50,13 @@ $resultado_medicacion = obtener_medicacion_actual($conexion, $id_paciente_selecc
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Información del Paciente</title>
-
     <script src="../js/paciente.js" defer></script>
     <style>
         #detalles-consulta {
             display: none;
+        }
+        .error-message {
+            color: red;
         }
     </style>
 </head>
@@ -90,13 +123,30 @@ $resultado_medicacion = obtener_medicacion_actual($conexion, $id_paciente_selecc
             <?php endwhile; ?>
         </ul>
     <?php else: ?>
-        <p>No está tomando medicación actualmente.</p>
+        <p>No hay medicación actual.</p>
     <?php endif; ?>
 
-    <div id="detalles-consulta">
-        <h2>Detalles de la Consulta</h2>
-        <p>Diagnóstico: <span id="detalle-diagnostico"></span></p>
-        <p>Sintomatología: <span id="detalle-sintomatologia"></span></p>
-    </div>
+    <h2>Pedir una Cita</h2>
+    <?php if ($resultado_medicos_asignados && mysqli_num_rows($resultado_medicos_asignados) > 0): ?>
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+            <input type="hidden" name="id_paciente" value="<?php echo htmlspecialchars($id_paciente_seleccionado); ?>">
+            <label for="medico">Médico:</label>
+            <select name="medico" id="medicos">
+                <?php while ($medico = mysqli_fetch_assoc($resultado_medicos_asignados)): ?>
+                    <option value="<?php echo htmlspecialchars($medico['id_medico']); ?>"><?php echo htmlspecialchars($medico['nombre'] . ' (' . $medico['especialidad'] . ')'); ?></option>
+                <?php endwhile; ?>
+            </select>
+            <label for="fecha">Fecha:</label>
+            <input type="date" id="fecha" name="fecha" required>
+            <label for="sintomas">Síntomas:</label>
+            <textarea id="sintomas" name="sintomas"></textarea>
+            <input type="submit" name="pedir_cita" value="Pedir cita">
+        </form>
+        <?php if (isset($mensaje_error)): ?>
+            <p class="error-message"><?php echo htmlspecialchars($mensaje_error); ?></p>
+        <?php endif; ?>
+    <?php else: ?>
+        <p>No se pudo obtener la información de los médicos asignados.</p>
+    <?php endif; ?>
 </body>
 </html>

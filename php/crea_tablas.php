@@ -69,10 +69,10 @@ function crearTablas() {
             ('Dra. Carmen', 'Fernández López', 'Neurología');
 
         INSERT INTO paciente (dni, nombre, apellidos, genero, fecha_nac, id_medicos_asignados) VALUES
-            ('12345678A', 'Laura', 'Gómez Rodríguez', 'F', '1990-05-15', '1,2'),
-            ('87654321B', 'Carlos', 'Pérez Gutiérrez', 'M', '1985-10-20', '3,4'),
-            ('23456789C', 'Sofía', 'García Martínez', 'F', '2000-03-08', '2,3'),
-            ('98765432D', 'Pedro', 'Rodríguez Sánchez', 'M', '1972-12-03', '1');
+            ('12345678A', 'Laura', 'Gómez Rodríguez', 'F', '1990-05-15', '1,2,3,4'),
+            ('87654321B', 'Carlos', 'Pérez Gutiérrez', 'M', '1985-10-20', '1,2,3,4'),
+            ('23456789C', 'Sofía', 'García Martínez', 'F', '2000-03-08', '1,2,3,4'),
+            ('98765432D', 'Pedro', 'Rodríguez Sánchez', 'M', '1972-12-03', '1,2,3,4');
 
         INSERT INTO consulta (id_medico, id_paciente, fecha_consulta, diagnostico, sintomatologia) VALUES
             (1, 1, '2023-03-01', 'Presión arterial alta', 'Dolor de cabeza y mareos'),
