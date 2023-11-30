@@ -19,12 +19,13 @@ function obtener_consulta($conexion, $id_paciente) {
 }
 
 // Función para obtener la medicación actual del paciente
-function obtener_medicacion($conexion, $id_paciente) {
-    $query_medicacion = "SELECT id_medicamento, posologia, fecha_fin FROM receta WHERE id_consulta = ? AND fecha_fin > NOW()";
-    $stmt_medicacion = mysqli_prepare($conexion, $query_medicacion);
-    mysqli_stmt_bind_param($stmt_medicacion, "i", $id_paciente);
-    mysqli_stmt_execute($stmt_medicacion);
-    return mysqli_stmt_get_result($stmt_medicacion);
+function obtener_medicacion_actual($conexion, $id_paciente) {
+    $hoy = date('Y-m-d');
+    $query = "SELECT r.id_medicamento, r.posologia, r.fecha_fin 
+              FROM receta r
+              JOIN consulta c ON r.id_consulta = c.id_consulta
+              WHERE c.id_paciente = $id_paciente AND r.fecha_fin >= '$hoy'";
+    return mysqli_query($conexion, $query);
 }
 
 function obtener_detalles_medico($conexion, $id_medico)
@@ -34,17 +35,6 @@ function obtener_detalles_medico($conexion, $id_medico)
     mysqli_stmt_bind_param($stmt, 'i', $id_medico);
     mysqli_stmt_execute($stmt);
     return mysqli_stmt_get_result($stmt);
-}
-
-
-
-// Función para obtener todas las consultas pasadas del paciente
-function obtener_consultas_pasadas($conexion, $id_paciente) {
-    $query_consultas_pasadas = "SELECT id_consulta, fecha_consulta FROM consulta WHERE id_paciente = ? AND fecha_consulta < NOW()";
-    $stmt_consultas_pasadas = mysqli_prepare($conexion, $query_consultas_pasadas);
-    mysqli_stmt_bind_param($stmt_consultas_pasadas, "i", $id_paciente);
-    mysqli_stmt_execute($stmt_consultas_pasadas);
-    return mysqli_stmt_get_result($stmt_consultas_pasadas);
 }
 
 
@@ -59,4 +49,48 @@ function obtener_pacientes($conexion) {
     $query_pacientes = "SELECT id_paciente, nombre FROM paciente";
     return mysqli_query($conexion, $query_pacientes);
 }
+
+// Función para obtener las próximas citas del paciente con detalles
+function obtener_proximas_citas_detalles($conexion, $id_paciente) {
+    $query_proximas_citas = "SELECT id_consulta, fecha_consulta, diagnostico, sintomatologia
+                             FROM consulta
+                             WHERE id_paciente = $id_paciente AND fecha_consulta >= NOW()";
+    return mysqli_query($conexion, $query_proximas_citas);
+}
+
+// Función para obtener todas las consultas pasadas del paciente con detalles
+function obtener_consultas_pasadas_detalles($conexion, $id_paciente) {
+    $query_consultas_pasadas = "SELECT id_consulta, fecha_consulta, diagnostico, sintomatologia 
+                                FROM consulta
+                                WHERE id_paciente = ? AND fecha_consulta < NOW()";
+    
+    $stmt_consultas_pasadas = mysqli_prepare($conexion, $query_consultas_pasadas);
+    mysqli_stmt_bind_param($stmt_consultas_pasadas, "i", $id_paciente);
+    mysqli_stmt_execute($stmt_consultas_pasadas);
+
+    return mysqli_stmt_get_result($stmt_consultas_pasadas);
+}
+
+// Función para obtener las próximas citas del paciente con un médico específico
+function obtener_proximas_citas($conexion, $id_paciente, $id_medico) {
+    $hoy = date('Y-m-d');
+    $query = "SELECT id_consulta, fecha_consulta, diagnostico, sintomatologia
+              FROM consulta
+              WHERE id_paciente = ?";
+
+    // Agregar condición para filtrar por fecha y médico si está presente
+    if ($id_medico !== null) {
+        $query .= " AND id_medico = ?";
+    }
+
+    // Continuar construyendo la consulta
+    $query .= " AND fecha_consulta >= ?";
+
+    $stmt_proximas_citas = mysqli_prepare($conexion, $query);
+    mysqli_stmt_bind_param($stmt_proximas_citas, "is", $id_paciente, $id_medico, $hoy);
+    mysqli_stmt_execute($stmt_proximas_citas);
+
+    return mysqli_stmt_get_result($stmt_proximas_citas);
+}
+
 ?>

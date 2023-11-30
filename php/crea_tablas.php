@@ -100,8 +100,8 @@ function crearTablas() {
             ('Amoxicilina');
 
         INSERT INTO receta (id_medicamento, id_consulta, posologia, fecha_fin) VALUES
-            (1, 1, '1 tableta cada 8 horas', '2023-03-10'),
-            (2, 2, '1 tableta cada 12 horas', '2023-02-25'),
+            (1, 1, '1 tableta cada 8 horas', '2024-03-10'),
+            (2, 2, '1 tableta cada 12 horas', '2024-02-25'),
             (3, 3, '1 tableta cada 24 horas', '2023-02-10'),
             (4, 4, '1 cucharadita cada 12 horas', '2023-03-15');
     ";
