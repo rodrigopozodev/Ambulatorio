@@ -113,14 +113,13 @@ if ($resultado_medicos) {
     <?php endif; ?>
 
     <?php if ($resultado_medicacion && $datos_medicacion): ?>
-    <h2>Medicación actual</h2>
-    <p>Medicación: <?php echo isset($datos_medicacion['medicacion']) ? $datos_medicacion['medicacion'] : 'N/A'; ?></p>
-    <p>Posología: <?php echo isset($datos_medicacion['posologia']) ? $datos_medicacion['posologia'] : 'N/A'; ?></p>
-    <p>Fecha de fin: <?php echo isset($datos_medicacion['fecha_fin']) ? $datos_medicacion['fecha_fin'] : 'N/A'; ?></p>
-<?php else: ?>
-    <p>No se pudo obtener la información de la medicación actual.</p>
-<?php endif; ?>
-
+        <h2>Medicación actual</h2>
+        <p>Medicación: <?php echo isset($datos_medicacion['medicacion']) ? $datos_medicacion['medicacion'] : 'N/A'; ?></p>
+        <p>Posología: <?php echo isset($datos_medicacion['posologia']) ? $datos_medicacion['posologia'] : 'N/A'; ?></p>
+        <p>Fecha de fin: <?php echo isset($datos_medicacion['fecha_fin']) ? $datos_medicacion['fecha_fin'] : 'N/A'; ?></p>
+    <?php else: ?>
+        <p>No se pudo obtener la información de la medicación actual.</p>
+    <?php endif; ?>
 
     <?php if ($resultado_consultas_pasadas): ?>
         <h2>Consultas pasadas</h2>
@@ -135,7 +134,7 @@ if ($resultado_medicos) {
 
     <?php if ($resultado_medicos): ?>
         <h2>Pedir una cita</h2>
-        <form action="pedir_cita.php" method="post">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <label for="medico">Médico:</label>
             <select name="medico" id="medico">
                 <?php foreach ($datos_medicos as $medico): ?>
@@ -151,5 +150,23 @@ if ($resultado_medicos) {
     <?php else: ?>
         <p>No se pudo obtener la información de los médicos.</p>
     <?php endif; ?>
+
+    <?php
+    // Procesar el formulario si se ha enviado
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['medico'])) {
+        $medico_seleccionado = $_POST['medico'];
+        $fecha_cita = $_POST['fecha'];
+        $sintomas = $_POST['sintomas'];
+
+        // Aquí puedes realizar las acciones necesarias con la información del formulario
+        // Por ejemplo, puedes insertar la cita en la base de datos
+
+        // Luego, redirige o realiza alguna acción después de procesar el formulario
+        // Puedes redirigir a la misma página o a otra según tus necesidades
+        header("Location: paciente.php");
+        exit(); // Asegúrate de detener la ejecución después de la redirección
+    }
+    ?>
+
 </body>
 </html>
