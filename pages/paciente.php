@@ -73,6 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['pedir_cita'])) {
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body class="paciente-body">
+<a href="../index.html" class="boton-volver">Volver al Inicio</a>
     <div class="container">
         <h1>Información del Paciente</h1>
 

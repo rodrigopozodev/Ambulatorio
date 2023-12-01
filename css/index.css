@@ -1,0 +1,51 @@
+/* Reset de estilos y estilos básicos */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.container-html {
+    text-align: center;
+}
+
+.h1-html {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.menu-html {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+.li-html {
+    margin: 0;
+}
+
+.li-html a {
+    text-decoration: none;
+    color: #007BFF;
+    padding: 10px;
+    border: 1px solid #007BFF;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.li-html a:hover {
+    background-color: #007BFF;
+    color: #fff;
+}
+
+/* Estilos adicionales según sea necesario */

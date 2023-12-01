@@ -44,6 +44,7 @@ $medicamentos = obtenerMedicamentos($conexion);
     <!-- Agrega cualquier otro enlace a archivos CSS que necesites -->
 </head>
 <body class="consulta-body">
+<a href="../index.html" class="boton-volver">Volver al Inicio</a>
     <div class="container">
         <h1>Consulta Médica</h1>
 

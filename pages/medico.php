@@ -19,6 +19,7 @@ $consultas_hoy = obtener_consultas_hoy($conexion, $id_medico_seleccionado);
     <link rel="stylesheet" href="../css/paginas.css">
 </head>
 <body class="paciente-body">
+<a href="../index.html" class="boton-volver">Volver al Inicio</a>
     <div class="container">
         <h1>Información del Médico</h1>
 
